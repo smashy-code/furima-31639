@@ -1,24 +1,54 @@
-# README
+# フリマアプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# users table（ユーザー管理機能）
+|      column      |      Type     |      Options    |
+|------------------|---------------|-----------------|
+|nickname          |string         |null: false      |
+|email             |string         |null: false      |
+|password          |string         |null: false      |
+|name              |string         |null: false      |
+|wonder            |string         |null: false      |
+|birthday          |integer        |null: false
 
-Things you may want to cover:
+has_many :listing
+has_many :purchase
 
-* Ruby version
 
-* System dependencies
+# listing table（商品出品機能）
 
-* Configuration
+|      column      |      Type     |      Options    |
+|------------------|---------------|-----------------|
+|image(active_record)
+|product           |text           |null: false      |
+|explanation       |text           |null: false      ｜
+|category_id(active_hash) 
+|status(active_hash) 
+|delivery(active_hash) 
+|area(active_hash) 
+|days(active_hash) 
+|price             |integer        |null: false
 
-* Database creation
+belongs_to :user
+has_one :purchase
 
-* Database initialization
 
-* How to run the test suite
+# purchase table（購入記録）
+|      column      |      Type     |      Options    |
+|------------------|---------------|-----------------|
+|user_id           |references     |foreign_key      |
+|product_id        |references     |foreign_key      |
 
-* Services (job queues, cache servers, search engines, etc.)
+belongs_to :user
+belongs_to :listing
+belongs_to :street
 
-* Deployment instructions
+# street address（住所）
+|      column      |      Type     |      Options    |
+|------------------|---------------|-----------------|
+|postal_code       |string         |null: false      |
+|prefectures       |string         |null: false      |
+|municipality      |string         |null: false      |
+|building          |string         |                 |
+|phone             |string         |null: false      |
 
-* ...
+has_one :purchase
