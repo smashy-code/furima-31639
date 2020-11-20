@@ -10,7 +10,6 @@
 |first_name        |string         |null: false      |
 |last_name_kana    |string         |null: false      |
 |first_name_kana   |string         |null: false      |
-|wonder            |string         |null: false      |
 |birthday          |data           |null: false
 
 has_many :listings
@@ -28,7 +27,8 @@ has_many :purchases
 |delivery_id(active_hash) ｜integer    |null:false        |
 |area_id(active_hash)     ｜integer    |null:false        |
 |days_id(active_hash)     ｜integer    |null:false        |
-|price                     |reference  |foreign_key:true |
+|price                     |integer    |null:false        |
+|user_id                  |references  |foreign_key: true|
 
 belongs_to :user
 has_one :purchase
@@ -47,10 +47,9 @@ has_one    :street
 # street address（住所）
 |      column      |      Type        |      Options    |
 |------------------|------------------|-----------------|
-|postal_code       |reference         |foreign_key: true|
-|prefectures(active_hash) |integer    |null: false      |
-|municipality      |reference         |foreign_key      |
-|building          |reference         |foreign_key      |
-|phone             |reference         |foreign_key      |
-
+|postal_code       |integer            |null: false|
+|prefecture_id(active_hash) |integer   |null: false     |
+|municipality      |string            |null:false       |
+|building          |string            |null:false       |
+|phone              |string            |null:false       |
 belongs_to :purchase
