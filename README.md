@@ -28,7 +28,7 @@ has_many :purchases
 |area_id(active_hash)     ｜integer    |null:false        |
 |days_id(active_hash)     ｜integer    |null:false        |
 |price                     |integer    |null:false        |
-|user_id                  |references  |foreign_key: true|
+|user                     |references  |foreign_key: true|
 
 belongs_to :user
 has_one :purchase
@@ -47,9 +47,12 @@ has_one    :street
 # street address（住所）
 |      column      |      Type        |      Options    |
 |------------------|------------------|-----------------|
-|postal_code       |integer            |null: false|
+|postal_code       |string            |null: false|
 |prefecture_id(active_hash) |integer   |null: false     |
 |municipality      |string            |null:false       |
-|building          |string            |null:false       |
+|address           |string            |null:false       |
+|building          |string            |                 |
 |phone              |string            |null:false       |
+|purchase         |references         |foreign_key: true |
+
 belongs_to :purchase
