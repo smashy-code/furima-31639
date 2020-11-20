@@ -1,24 +1,58 @@
-# README
+# フリマアプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# users table（ユーザー管理機能）
+|      column      |      Type     |      Options    |
+|------------------|---------------|-----------------|
+|nickname          |string         |null: false      |
+|email             |string         |null: false      |
+|encrypted_password|string         |null: false      |
+|last_name         |string         |null: false      |
+|first_name        |string         |null: false      |
+|last_name_kana    |string         |null: false      |
+|first_name_kana   |string         |null: false      |
+|birthday          |data           |null: false
 
-Things you may want to cover:
+has_many :listings
+has_many :purchases
 
-* Ruby version
 
-* System dependencies
+# listing table（商品出品機能）
 
-* Configuration
+|      column             |   Type      |     Options    |
+|-------------------------|------------|-----------------|
+|product                  |string      |null: false      |
+|explanation              |text        |null: false      ｜
+|category_id(active_hash) ｜integer    |null:false       |
+|status_id(active_hash)   ｜integer    |null:false        |
+|delivery_id(active_hash) ｜integer    |null:false        |
+|area_id(active_hash)     ｜integer    |null:false        |
+|days_id(active_hash)     ｜integer    |null:false        |
+|price                     |integer    |null:false        |
+|user                     |references  |foreign_key: true|
 
-* Database creation
+belongs_to :user
+has_one :purchase
 
-* Database initialization
 
-* How to run the test suite
+# purchase table（購入記録）
+|      column      |      Type     |      Options    |
+|------------------|---------------|-----------------|
+|user               |references    |foreign_key: true|
+|product           |references     |foreign_key: true|
 
-* Services (job queues, cache servers, search engines, etc.)
+belongs_to :user
+belongs_to :listing
+has_one    :street
 
-* Deployment instructions
+# street address（住所）
+|      column      |      Type        |      Options    |
+|------------------|------------------|-----------------|
+|postal_code       |string            |null: false|
+|prefecture_id(active_hash) |integer   |null: false     |
+|municipality      |string            |null:false       |
+|address           |string            |null:false       |
+|building          |string            |                 |
+|phone              |string            |null:false       |
+|purchase         |references         |foreign_key: true |
 
-* ...
+belongs_to :purchase
