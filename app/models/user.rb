@@ -5,16 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   with_options presence: true do
-    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-    validates :email, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
+    validates :nickname
 
-    VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)\w{6,12}\z/.freeze
+    VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,12}+\z/i.freeze
     with_options format: { with: VALID_PASSWORD_REGEX,
-                           message: 'は半角6~12文字英大文字・小文字・数字それぞれ１文字以上含む必要があります' },
+                           message: 'は半角6~12文字英小文字・数字それぞれ１文字以上含む必要があります' },
                  confirmation: true,
                  length: { minimum: 6 } do
       validates :password
-      validates :encrypted_password
     end
 
     with_options format: { with: /\A[ぁ-んァ-ンー-龥]/ } do

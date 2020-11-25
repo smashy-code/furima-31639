@@ -6,22 +6,23 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
-    # context '新規登録がうまくいくとき' do
-    #   it 'メールアドレスは@を含んでいれば登録できる' do
-    #     @user.email = "aaa@aaa"
-    #     expect(@user).to be_valid
-    #   end
-    #   it 'パスワードは６文字以上で登録できる' do
-    #     @user.password = "aaaaaa"
-    #     @user.password_confirmation = "aaaaaa"
-    #     expect(@user).to be_valid
-    #   end
-    #   it 'パスワードとパスワード（確認用）、値の一致して登録できる'do
-    #     @user.password = "aaaaaa"
-    #     @user.password_confirmation = "aaaaaa"
-    #     expect(@user).to be_valid
-    #   end
-    # end
+    context '新規登録がうまくいくとき' do
+      it 'メールアドレスは@を含んでいれば登録できる' do
+        @user.email = 'aaaaaa@aaaaaa'
+        expect(@user).to be_valid
+      end
+      it 'パスワードは６文字以上で登録できる' do
+        @user.password = 'aaaaaa123'
+        @user.password_confirmation = 'aaaaaa123'
+        binding
+        expect(@user).to be_valid
+      end
+      it 'パスワードとパスワード（確認用）、値の一致して登録できる' do
+        @user.password = 'aaaaaa123'
+        @user.password_confirmation = 'aaaaaa123'
+        expect(@user).to be_valid
+      end
+    end
 
     context '新規登録がうまくいかない時' do
       it 'メールアドレスが空と登録できない' do
