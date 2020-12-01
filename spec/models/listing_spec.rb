@@ -1,0 +1,105 @@
+require 'rails_helper'
+
+RSpec.describe Listing, type: :model do
+  describe '商品の出品' do
+    before do
+      @listing = FactoryBot.build(:listing)
+    end
+
+    context '出品がうまくいくとき' do
+      it '商品名が40文字以下の時に出品できる' do
+        @listing.product = 'aaaaa'
+        expect(@listing).to be_valid
+      end
+
+      it '商品の説明が1000文字以下の時に出品できる' do
+        @listing.explanation = 'aaaaa'
+        expect(@listing).to be_valid
+      end
+
+      it '価格が300円の間であれば出品できる' do
+        @listing.price = 300
+        expect(@listing).to be_valid
+      end
+
+      it '価格が9,999,999円の間であれば出品できる' do
+        @listing.price = 9_999_999
+        expect(@listing).to be_valid
+      end
+    end
+
+    context '出品がうまくいかないとき' do
+      it '出品画像が空だと出品できない' do
+        @listing.image = nil
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include("Image can't be blank")
+      end
+
+      it '商品名が空だと出品できない' do
+        @listing.product = ''
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include("Product can't be blank")
+      end
+
+      it '商品の説明が空だと出品できない' do
+        @listing.explanation = ''
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include("Explanation can't be blank")
+      end
+
+      it 'カテゴリーが空だと出品できない' do
+        @listing.category_id = ''
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Category is not a number')
+      end
+
+      it '商品の状態が空だと出品できない' do
+        @listing.status_id = 1
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Status must be other than 1')
+      end
+
+      it '配送料の負担が空だと出品できない' do
+        @listing.delivery_id = 1
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Delivery must be other than 1')
+      end
+
+      it '発送元の地域が空だと出品できない' do
+        @listing.area_id = 1
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Area must be other than 1')
+      end
+
+      it '発送までの日数が空だと出品できない' do
+        @listing.days_id = 1
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Days must be other than 1')
+      end
+
+      it '価格が空だと出品できない' do
+        @listing.price = ''
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include("Price can't be blank")
+      end
+
+      it '価格が全角だと保存できない' do
+        @listing.price = '５０００'
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Price is out of setting range')
+      end
+
+      it '価格が299円以下であれば出品できない' do
+        @listing.price = 299
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Price is out of setting range')
+      end
+
+      it '価格が1,000,000,000以上であれば出品できない' do
+        @listing.price = 1_000_000_000
+        @listing.valid?
+        expect(@listing.errors.full_messages).to include('Price is out of setting range')
+      end
+    end
+  end
+end
