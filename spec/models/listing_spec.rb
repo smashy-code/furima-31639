@@ -7,25 +7,12 @@ RSpec.describe Listing, type: :model do
     end
 
     context '出品がうまくいくとき' do
-      it '商品名が40文字以下の時に出品できる' do
-        @listing.product = 'aaaaa'
+
+      it '必要項目が全て正しければ登録できる'do
+        @listing
         expect(@listing).to be_valid
       end
 
-      it '商品の説明が1000文字以下の時に出品できる' do
-        @listing.explanation = 'aaaaa'
-        expect(@listing).to be_valid
-      end
-
-      it '価格が300円の間であれば出品できる' do
-        @listing.price = 300
-        expect(@listing).to be_valid
-      end
-
-      it '価格が9,999,999円の間であれば出品できる' do
-        @listing.price = 9_999_999
-        expect(@listing).to be_valid
-      end
     end
 
     context '出品がうまくいかないとき' do

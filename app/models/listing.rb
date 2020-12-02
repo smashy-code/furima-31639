@@ -6,7 +6,6 @@ class Listing < ApplicationRecord
     validates :product
     validates :explanation
     validates :price
-    # validates :price, format: {without: /\A[０-９]+\z/}
     validates :image, unless: :was_attached?
   end
 
