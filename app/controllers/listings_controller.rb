@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
-    @listing = Listing.order('created_at DESC')
+    @listing = Listing#.order('created_at DESC')
   end
 
   def new
