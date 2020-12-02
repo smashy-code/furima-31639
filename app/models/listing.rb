@@ -1,6 +1,10 @@
 class Listing < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category, :status, :delivery, :area, :days
+  belongs_to :category
+  belongs_to :status
+  belongs_to :delivery
+  belongs_to :area
+  belongs_to :days
 
   with_options presence: true do
     validates :product
