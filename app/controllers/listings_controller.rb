@@ -19,10 +19,14 @@ class ListingsController < ApplicationController
     end
   end
 
+    def show
+      @listing = Listing.find(params[:id])
+    end
+
   private
 
   def listing_params
-    params.require(:listing).permit(:product, :explanation, :category_id, :status_id, :delivery_id, :area_id, :days_id, :price, :image).merge(user_id: current_user.id)
+    params.require(:listing).permit(:product, :explanation, :category_id, :status_id, :delivery_id, :area_id, :day_id, :price, :image).merge(user_id: current_user.id)
   end
 
 

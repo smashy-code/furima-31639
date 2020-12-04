@@ -58,9 +58,9 @@ RSpec.describe Listing, type: :model do
       end
 
       it '発送までの日数が空だと出品できない' do
-        @listing.days_id = 1
+        @listing.day_id = 1
         @listing.valid?
-        expect(@listing.errors.full_messages).to include('Days must be other than 1')
+        expect(@listing.errors.full_messages).to include('Day must be other than 1')
       end
 
       it '価格が空だと出品できない' do
