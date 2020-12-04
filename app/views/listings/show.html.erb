@@ -16,14 +16,13 @@
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        ¥ 999,999,999
+        <%= @listing.price %>
       </span>
       <span class="item-postage">
-        <%= '配送料負担' %>
+        <%= @listing.delivery.name %>
       </span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
     <% if user_signed_in? && current_user.id == @listing.user_id %>
     <%= link_to '商品の編集', "#", method: :get, class: "item-red-btn" %>
     <p class='or-text'>or</p>
@@ -34,8 +33,6 @@
     <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
     <%# //商品が売れていない場合はこちらを表示しましょう %>
   <% end %>
-
-    <%# //ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
 
     <div class="item-explain-box">
       <span><%= "商品説明" %></span>
@@ -48,23 +45,23 @@
         </tr>
         <tr>
           <th class="detail-item">カテゴリー</th>
-          <td class="detail-value"><%= "カテゴリー名" %></td>
+          <td class="detail-value"><%= @listing.category.name %></td>
         </tr>
         <tr>
           <th class="detail-item">商品の状態</th>
-          <td class="detail-value"><%= "商品の状態" %></td>
+          <td class="detail-value"><%= @listing.status.name %></td>
         </tr>
         <tr>
           <th class="detail-item">配送料の負担</th>
-          <td class="detail-value"><%= "発送料の負担" %></td>
+          <td class="detail-value"><%= @listing.delivery.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送元の地域</th>
-          <td class="detail-value"><%= "発送元の地域" %></td>
+          <td class="detail-value"><%= @listing.area.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送日の目安</th>
-          <td class="detail-value"><%= "発送日の目安" %></td>
+          <td class="detail-value"><%= @listing.day.name %></td>
         </tr>
       </tbody>
     </table>
