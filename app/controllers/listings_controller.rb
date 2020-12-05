@@ -40,8 +40,11 @@ class ListingsController < ApplicationController
   end
 
   def destroy
-    @listing.destroy
-    redirect_to root_path
+    if @listing.destroy = current_user
+      redirect_to root_path
+    else
+      render :index
+    end
   end
 
   private
