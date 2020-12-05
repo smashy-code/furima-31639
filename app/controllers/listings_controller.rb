@@ -40,7 +40,7 @@ class ListingsController < ApplicationController
   end
 
   def destroy
-    if current_user?
+    if user_signed_in? && current_user.id == @listing.user_id 
       @listing.destroy
       redirect_to root_path
     else
