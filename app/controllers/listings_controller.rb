@@ -21,11 +21,16 @@ class ListingsController < ApplicationController
   end
 
     def show
+
     end
 
     def edit
-
+      if @listing.user == current_user
+        render :edit
+      else
+        redirect_to root_path
     end
+  end
 
     def update
     if  @listing.update(listing_params)
