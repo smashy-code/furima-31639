@@ -1,5 +1,6 @@
 class ListingsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
+  before_action :set_listing, only: [:show, :edit, :update]
 
   def index
     @listing = Listing.order('created_at DESC')
@@ -20,13 +21,33 @@ class ListingsController < ApplicationController
   end
 
     def show
-      @listing = Listing.find(params[:id])
+
+    end
+
+    def edit
+      if @listing.user == current_user
+        render :edit
+      else
+        redirect_to root_path
+    end
+  end
+
+    def update
+    if  @listing.update(listing_params)
+     redirect_to listing_path(@listing.id)
+    else
+      render :edit
+    end
     end
 
   private
 
   def listing_params
     params.require(:listing).permit(:product, :explanation, :category_id, :status_id, :delivery_id, :area_id, :day_id, :price, :image).merge(user_id: current_user.id)
+  end
+
+  def set_listing
+    @listing = Listing.find(params[:id])
   end
 
 
