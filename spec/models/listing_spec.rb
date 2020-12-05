@@ -7,11 +7,9 @@ RSpec.describe Listing, type: :model do
     end
 
     context '出品がうまくいくとき' do
-
-      it '必要項目が全て正しければ登録できる'do
+      it '必要項目が全て正しければ登録できる' do
         expect(@listing).to be_valid
       end
-
     end
 
     context '出品がうまくいかないとき' do
